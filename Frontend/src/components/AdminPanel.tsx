@@ -13,9 +13,9 @@ interface StudentProps {
 }
 
 const AdminPanel : FC<Props> = ({isSignedIn}) => {
-    const [adminId, setAdminId] = useState(Number(0))
+    const [adminId, setAdminId] = useState()
     const [name, setName] = useState('')
-    const [Class, setClass] = useState(Number(0))
+    const [Class, setClass] = useState()
     const [password, setPassword] = useState('')
     const [students, setStudents] = useState([])
     const [time, setTime] = useState(0)
