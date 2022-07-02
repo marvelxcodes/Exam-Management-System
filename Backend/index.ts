@@ -7,7 +7,7 @@ import { Result } from './routes/result'
 import { Test } from './routes/test'
 
 const App = express()
-const port = 4000
+const port = process.env.PORT || 3000
 
 App.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
