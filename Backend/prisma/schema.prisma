@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+model Test {
+  id            Int  @id @default(dbgenerated()) @unique
+  name          String
+  startingTime  String
+  totalTime     Int
+}
+
+model Result {
+  id            Int @id @default(dbgenerated()) @unique
+  testId        Int
+  testName      String
+  studentId     Int
+  scoredMark    Int
+}
+
+model Question {
+  id        Int     @id @default(dbgenerated()) @unique
+  question  String
+  optionA   String
+  optionB   String
+  optionC   String
+  optionD   String
+  answer    String
+  testId    Int
+}
+
+model Student {
+  id              Int     @id @default(dbgenerated()) @unique
+  password        String
+  name            String
+  class           Int
+}
