@@ -13,9 +13,9 @@ interface StudentProps {
 }
 
 const AdminPanel : FC<Props> = ({isSignedIn}) => {
-    const [adminId, setAdminId] = useState()
+    const [adminId, setAdminId] = useState<number>()
     const [name, setName] = useState('')
-    const [Class, setClass] = useState()
+    const [Class, setClass] = useState<number>()
     const [password, setPassword] = useState('')
     const [students, setStudents] = useState([])
     const [time, setTime] = useState(0)
@@ -93,8 +93,8 @@ const AdminPanel : FC<Props> = ({isSignedIn}) => {
             <h1 className="m-5 font-bold text-2xl">Register Student</h1>
             <input value={name} onChange={E=>setName(E.target.value)} className="mx-5 mb-3 w-[calc(100%-5rem)] h-10 rounded-md p-5 text-gray-400" placeholder="Name" type="text" />
             <div className="flex w-[calc(100%-5rem)]">
-                <input value={adminId} onChange={E=>setAdminId(Number(E.target.value))} className=" mb-3 w-1/2 h-10 rounded-md p-5 text-gray-400" placeholder="Admission Number" type="text"  />
-                <input value={Class} onChange={E=>setClass(Number(E.target.value))} className=" mb-3 w-1/2 ml-3 h-10 rounded-md p-5 text-gray-400" placeholder="Class" type="text" />
+                <input value={adminId} onChange={E=>setAdminId(Number(E.target.value))} className=" mb-3 w-1/2 h-10 rounded-md p-5 text-gray-400" placeholder="Admission Number" type="number"  />
+                <input value={Class} onChange={E=>setClass(Number(E.target.value))} className=" mb-3 w-1/2 ml-3 h-10 rounded-md p-5 text-gray-400" placeholder="Class" type="number" />
             </div>
             <input value={password} onChange={E=>setPassword(E.target.value)} className="mx-5 mb-3 w-[calc(100%-5rem)] h-10 rounded-md p-5 text-gray-400" placeholder="Password" type="password" />
             <button onClick={createStudent} className="h-10 mb-8 bg-black w-[calc(100%-5rem)] rounded-md text-white hover:bg-gray-800 transition-all text-lg font-bold">Create</button>
