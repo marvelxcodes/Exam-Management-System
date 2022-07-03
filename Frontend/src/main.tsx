@@ -4,6 +4,7 @@ import { AppContext } from './utils/AppContext'
 import { useState } from 'react'
 import Header from './components/Header'
 import './utils/Tailwind.css'
+import "bootstrap-icons/font/bootstrap-icons.css"
 
 // Page imports
 import Home from './pages/Home'

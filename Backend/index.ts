@@ -7,14 +7,15 @@ import { Result } from './routes/result'
 import { Test } from './routes/test'
 
 const App = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 4000
 
-App.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+App.all('*', function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE')
     res.header('Access-Control-Allow-Headers', 'Content-Type')
     next()
 })
+
 App.use(express.urlencoded({extended: true}))
 App.use(express.json())
 App.use(Student)
