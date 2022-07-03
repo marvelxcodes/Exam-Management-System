@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { AppContext } from './utils/AppContext'
 import { useState } from 'react'
 import Header from './components/Header'
@@ -12,6 +12,7 @@ import Tests from './pages/Tests/Tests'
 import Test from './pages/Tests/Test'
 import Admin from './pages/Admin/Admin'
 import Login from './pages/Login'
+import _404 from './pages/_404'
 
 function App() {
     const [student, setStudent] = useState({
@@ -30,6 +31,7 @@ function App() {
             <Route path='/Admin' element={<Admin />} />
             <Route path='/Test/:id' element={<Test />} />
             <Route path='/Tests' element={<Tests />} />
+            <Route path='*' element={<_404/>} />
         </Routes>
     </AppContext.Provider>
 </BrowserRouter>

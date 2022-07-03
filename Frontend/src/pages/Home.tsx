@@ -37,7 +37,8 @@ const Home: FC = () => {
   return (
 <div>
   <div className='pt-20 h-screen items-center justify-center flex flex-col'>
-    <h1 className='font-extrabold text-6xl text-gray-500 mb-3'>Hello {context.student.name}</h1>
+    <h1 className='font-extrabold text-4xl text-gray-400'>Hello</h1>
+    <h1 className='font-extrabold text-6xl text-gray-500 mb-3'>{context.student.name}</h1>
     <p className='font-bold text-2xl'>Class : {context.student.class}</p>
     <hr className='h-[1px] m-8 bg-gray-300 w-96' />
     <div className="flex">
@@ -50,12 +51,12 @@ const Home: FC = () => {
   <div ref={resultsRef} className='pt-10 h-[calc(100vh-5rem)] items-center justify-start flex flex-col'>
     <h1 className='font-extrabold text-4xl'>Your Results</h1>
     <div className="p-8">
-    {results.map((result:ResultProps)=> (
-      <div className="flex p-5 rounded-md justify-between items-center w-[30rem] h-10 outline-1 outline outline-gray-300">
-        <h1 className='font-bold text-lg'>{result.testName}</h1>
-        <h1 className='font-bold text-lg'>{result.scoredMark} Marks</h1>
-      </div>
-    ))}
+      {results.map((result:ResultProps)=> (
+        <div className="flex p-5 rounded-md justify-between items-center w-[30rem] h-10 outline-1 outline outline-gray-300">
+          <h1 className='font-bold text-lg'>{result.testName}</h1>
+          <h1 className='font-bold text-lg'>{result.scoredMark} Marks</h1>
+        </div>
+      ))}
     </div>
   </div>
 </div>
