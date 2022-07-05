@@ -19,7 +19,6 @@ Student.get('/student/:id', async (
     } else {
         res.json('error')
     }
-    
 })
 
 Student.get('/students', async (
@@ -43,7 +42,7 @@ Student.post('/student', async (
             class: Number(Class)
         }
     })
-    res.json('Student Created Sucessfully!') 
+    res.status(200).json({ success: true})
 })
 
 Student.delete('/student/:id', async (
@@ -56,4 +55,5 @@ Student.delete('/student/:id', async (
             id: Number(id)
         }
     })
+    res.status(200).json({ success: true})
 })

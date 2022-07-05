@@ -8,5 +8,4 @@ export default function _404() {
       <hr className="w-96 h-[1px] bg-gray-600 mt-5" />
       <a onClick={() => navigate('/')} className="cursor-pointer hover:text-gray-500">Go back to Home</a>
     </div>
-  )
-}
+)}

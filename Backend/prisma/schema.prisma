@@ -10,8 +10,8 @@ datasource db {
 model Test {
   id            Int  @id @default(dbgenerated()) @unique
   name          String
-  startingTime  String
-  totalTime     Int
+  date          String
+  subject       String
 }
 
 model Result {

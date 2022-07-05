@@ -2,8 +2,8 @@
 CREATE TABLE "Test" (
     "id" INT4 NOT NULL,
     "name" STRING NOT NULL,
-    "startingTime" STRING NOT NULL,
-    "totalTime" INT4 NOT NULL,
+    "date" STRING NOT NULL,
+    "subject" STRING NOT NULL,
 
     CONSTRAINT "Test_pkey" PRIMARY KEY ("id")
 );

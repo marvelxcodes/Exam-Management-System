@@ -16,27 +16,25 @@ Test.post('/test', async (
     req: Request,
     res: Response
 ) => {
-    const body = req.body
-    const {name, startingTime, totalTime, id } = body
+    const {name, date, subject, id } = req.body
     await Prisma.test.create({
         data: {
             name,
-            startingTime: String(startingTime),
-            totalTime: Number(totalTime),
+            date,
+            subject,
             id : Number(id)
         }
     })
+    res.status(200).json({ success: true})
 })
 
-Test.delete('/test/:id', async (
+Test.delete('/test', async (
     req: Request,
     res: Response
 ) => {
-    const { id } = req.params
+    const id = req.body.id
     await Prisma.test.delete({
-        where: {
-            id: Number(id)
-        }
+        where: { id: Number(id) }
     })
-    res.json('Test has been Deleted Sucessfully!') 
+    res.status(200).json({success: true})
 })

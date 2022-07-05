@@ -3,7 +3,7 @@ import { useState } from 'react'
 import AdminPanel from '../../components/AdminPanel'
 
 const Admin : FC = () => {
-    const [isSignedIn, setIsSignedIn ] = useState(!false)
+    const [isSignedIn, setIsSignedIn] = useState(!false)
     const [password, setPassword] = useState('')
     const [username, setUsername] = useState('')
 

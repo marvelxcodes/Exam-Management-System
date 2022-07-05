@@ -26,11 +26,25 @@ Question.get('/questions/:id', async (
     })
 })
 
+Question.get('/question/:id', async (
+    req: Request,
+    res: Response
+) => {
+    const id = req.params.id
+    const questions = await Prisma.question.findMany({
+        where: {
+            testId : Number(id)
+        }
+    })
+    res.json(questions)
+})
+
 Question.post('/questions', async (
     req: Request,
     res: Response
 ) => {
     const { answer, optionA, optionB, optionC, optionD, question, testId } = req.body
+    console.log(testId, answer)
     await Prisma.question.create({
         data: {
             answer,
@@ -43,6 +57,7 @@ Question.post('/questions', async (
             id: Math.floor(Math.random()*100000)
         }
     })
+    res.status(200).json({ success: true})
 })
 
 Question.delete('/question/:id', async (
@@ -55,5 +70,5 @@ Question.delete('/question/:id', async (
             id: Number(id)
         }
     })
-    res.json("The question has been deleted sucessfully!")
+    res.status(200).json({ success: true})
 })

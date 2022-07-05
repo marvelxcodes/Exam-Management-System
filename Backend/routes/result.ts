@@ -19,7 +19,6 @@ Result.get('/results/:studentId', async (
     } else {
         res.json('error')
     }
-    
 })
 
 Result.post('/result/create', async (
@@ -37,4 +36,5 @@ Result.post('/result/create', async (
             id: Math.floor(Math.random()*100000)
         }
     }))
+    res.status(200).json({ success: true})
 })
