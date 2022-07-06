@@ -5,6 +5,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import URL from '../utils/URL'
 
 interface ResultProps {
+  id: number
   studentId: number
   scoredMark: number
   testId: number
@@ -31,8 +32,9 @@ const Home: FC = () => {
   useEffect(() => {
     if (!context.student.isLoggedIn) {
       navigate('/Login')
+    } else {
+      fetchResults()
     }
-    fetchResults()
   },[])
 
   return (
@@ -53,7 +55,7 @@ const Home: FC = () => {
     <h1 className='font-extrabold text-4xl'>Your Results</h1>
     <div className="p-8 flex flex-col items-center w-full">
       {results.map((result:ResultProps)=> (
-        <div key={useid} className="flex p-5 rounded-md justify-between items-center w-full my-3 mx-1 md:w-[30rem] h-10 outline-1 outline outline-gray-300">
+        <div key={result.id} className="flex p-5 rounded-md justify-between items-center w-full my-3 mx-1 md:w-[30rem] h-10 outline-1 outline outline-gray-300">
           <h1 className='font-bold text-lg'>{result.testName}</h1>
           <h1 className='font-bold text-lg'>{result.scoredMark} Marks</h1>
         </div>

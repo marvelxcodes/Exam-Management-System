@@ -33,8 +33,11 @@ Test.delete('/test', async (
     res: Response
 ) => {
     const id = req.body.id
-    await Prisma.test.delete({
+    await Prisma.test.deleteMany({
         where: { id: Number(id) }
+    })
+    await Prisma.question.deleteMany({
+        where: { testId: Number(id) }
     })
     res.status(200).json({success: true})
 })

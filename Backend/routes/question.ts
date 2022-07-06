@@ -44,7 +44,6 @@ Question.post('/questions', async (
     res: Response
 ) => {
     const { answer, optionA, optionB, optionC, optionD, question, testId } = req.body
-    console.log(testId, answer)
     await Prisma.question.create({
         data: {
             answer,

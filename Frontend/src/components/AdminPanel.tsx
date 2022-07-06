@@ -51,6 +51,9 @@ const AdminPanel : FC<Props> = ({isSignedIn}) => {
     const optionD = useRef<any>()
     const [answer, setAnswer] = useState<string>()
     const [ansSelection, setAnsSelection] = useState<number>()
+    const [delQues, setDelQues] = useState<boolean>()
+
+    useEffect(() => { if(testId) { fetchQuestions() }},[testId])
 
     useEffect(() => {
         fetchStudents()
@@ -67,7 +70,7 @@ const AdminPanel : FC<Props> = ({isSignedIn}) => {
     }
 
     const fetchQuestions = async () => {
-        const res = await axios.get(`${URL}/questions/${testId}`)
+        const res = await axios.get(`${URL}/question/${testId}`)
         setQuestions(res.data)
     }
 
@@ -99,17 +102,11 @@ const AdminPanel : FC<Props> = ({isSignedIn}) => {
     async function createTest() {
         const id = testid()
         if(testName.current.value&&date.current.value&&subject.current.value) {
-            await fetch(`${URL}/test`,{
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    name: testName.current.value,
-                    date: date.current.value,
-                    subject: subject.current.value,
-                    id
-                })
+            await axios.post(`${URL}/test`,{
+                name: testName.current.value,
+                date: date.current.value,
+                subject: subject.current.value,
+                id
             })
             setTestId(id)
             fetchTests()
@@ -119,14 +116,8 @@ const AdminPanel : FC<Props> = ({isSignedIn}) => {
     }
 
     async function deleteTest(id:number) {
-        await fetch(`${URL}/test`, {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id
-            })
+        await axios.delete(`${URL}/test`, {
+            data: {id}
         })
         fetchTests()
     }
@@ -151,9 +142,10 @@ const AdminPanel : FC<Props> = ({isSignedIn}) => {
         fetchQuestions()
     }
 
-    async function deleteQuestion(e:any) {
-        await axios.delete(`${URL}/question/${e.target.value}`,{
+    async function deleteQuestion(id:number) {
+        await axios.delete(`${URL}/question/${id}`,{
         })
+        fetchQuestions()
     }
   return (
 <div style={isSignedIn?{}:{display:'none'}} className='flex-col select-none flex lg:flex-row lg:items-start items-center pt-10 min-h-full'>
@@ -165,7 +157,7 @@ const AdminPanel : FC<Props> = ({isSignedIn}) => {
                 <label className="bg-white font-bold w-1/2 mr-3 p-3 flex justify-center rounded-md">Date: <input className="text-gray-500 text-md text-center font-semibold" ref={date} type="date"/></label>
                 <label className="bg-white font-bold items-center p-3 w-1/2 ml-3 flex justify-center rounded-md ">Subject: 
                     <select ref={subject} className="ml-1 text-gray-500 bg-white">
-                        <option className="hover:bg-black rounded-md" value="Computer Science">Computer Science</option>
+                        <option value="Computer Science">Computer Science</option>
                         <option value="English">English</option>
                         <option value="Mathematics">Mathematics</option>
                         <option value="Chemistry">Chemistry</option>
@@ -214,14 +206,14 @@ const AdminPanel : FC<Props> = ({isSignedIn}) => {
                 <button onClick={createQuestion} className="h-10 mt-3 bg-black w-[calc(100%-5rem)] rounded-md text-white hover:bg-gray-800 transition-all text-lg font-bold">Create</button>
             </form>
         </div>
-        <div style={!testId?{display:'none'}:{}} className="flex w-full flex-col items-center">
+        <div style={!testId?{display:'none'}:{}} className="flex pb-8 w-[calc(100%-5rem)] flex-col items-center">
             <hr className="h-[1px] w-[calc(100%-5rem)] bg-gray-400 m-8" />
-            <h1 className="m-5 font-bold text-2xl">Questions</h1>
-            {questions?.map((question:QuestionProps) => (
-                <div className="h-10 outline outline-1 outline-gray-400 my-3 bg-white rounded-md justify-evenly items-center w-full flex">
-                    <h1 className="mx-5 text-center w-1/5"></h1>
-                    <h1 className="mx-5 text-center w-2/5"></h1>
-                    <button className="w-1/5 text-right relative right-5" onClick={() => deleteQuestion(question.id)}>
+            <h1 className="mt-5 font-bold text-2xl">Questions</h1>
+            <p className="mb-5 font-medium text-sm text-gray-600">Number of Questions: {questions.length}</p>
+            {questions?.map((question:QuestionProps, index) => (
+                <div className="h-10 outline relative outline-1 outline-gray-400 my-3 bg-white rounded-md justify-evenly items-center w-full flex" key={question.id}>
+                    <h1 className="mx-5 text-left font-semibold w-full">{index+1}. {question.question}</h1>
+                    <button className="w-5 text-right absolute right-5" onClick={() => {deleteQuestion(question.id);setDelQues(!delQues?true:!delQues)}}>
                         <i className="bi bi-trash3 hover:text-red-500"></i>
                     </button>
                 </div>
