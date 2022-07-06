@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const Tests : FC = () => {
-    const [resultIds, setResultIds] = useState([])
+    const [resultIds, setResultIds] = useState<number[]>()
     const [tests, setTests ] = useState([])
     const navigate = useNavigate()
     const context = useContext(AppContext)
@@ -37,7 +37,8 @@ const Tests : FC = () => {
     <h1 className='text-4xl font-extrabold text-gray-500 my-4'>TESTS</h1>
     <div className='flex flex-col md:flex-row flex-wrap items-center justify-center'>
         {tests?.map((test:any)=> {
-            const finished = (resultIds.includes(test.id))?true:false
+            const id = Number(test.id)
+            const finished = (resultIds?.includes(id))?true:false
         return(
             <Test finished={finished} key={test.id} test={test} />
         )})}
