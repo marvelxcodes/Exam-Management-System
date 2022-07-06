@@ -78,7 +78,7 @@ const Test: FC<TestProps> = ({test, finished}) => {
         <hr className='bg-gray-500 w-28 h-[0.5px] m-1' />
         <p className='text-sm text-gray-500'>{new Date(test.date).toUTCString().slice(4, 16)}</p>
     </div>
-    <button disabled={new Date(test.date).toDateString()!=new Date().toDateString()?true:false} onClick={()=>{navigate(`/Test/${test.id}`)}} className="h-10 hover:bg-gray-600 font-medium w-[calc(100%-1rem)] transition-all absolute bottom-2 rounded bg-gray-500 text-white ">
+    <button disabled={finished?true:new Date(test.date).toDateString()!=new Date().toDateString()?true:false} onClick={()=>{navigate(`/Test/${test.id}`)}} className="h-10 hover:bg-gray-600 font-medium w-[calc(100%-1rem)] transition-all absolute bottom-2 rounded bg-gray-500 text-white ">
         {finished?"Finished":(new Date(test.date).toDateString()==new Date().toDateString())?'Attend':Date.parse(test.date)>Date.parse(Date())?"Not Started Yet":'Exam Over'}
     </button>
 </div>
