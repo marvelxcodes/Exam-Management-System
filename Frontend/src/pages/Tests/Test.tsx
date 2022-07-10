@@ -9,17 +9,24 @@ const Test : FC = () => {
     const params = useParams()
     const navigate = useNavigate()
     const context = useContext(AppContext)
-    const [questions, setQuestions] = useState([])
-    const [testName, setTestName] = useState('')
-    const [testId, setTestId] = useState(0)
-    const [marks, setMarks] = useState(0)
-    const [sure, setSure] = useState(false)
-    const [finished, setFinished] = useState(false)
+    const [questions, setQuestions] = useState<object[]>()
+    const [testName, setTestName] = useState<string>()
+    const [testId, setTestId] = useState<number>()
+    const [marks, setMarks] = useState<number>()
+    const [sure, setSure] = useState<boolean>(false)
+    const [finished, setFinished] = useState<boolean>(false)
+    const [results, setResults] = useState<object[]>()
     useEffect(() => {
         if (!context.student.isLoggedIn) {
             navigate('/Login')
         }
+        async () => {
+            const results = await axios.get(`${URL}/results/${context.student.id}`)
+            setResults(results.data)
+            console.log(results.data)
+        }
     },[])
+
     async function fetchQns() {
             const res = await axios.get(`${URL}/questions/${params.id}`)
             setQuestions(res.data.questions)
